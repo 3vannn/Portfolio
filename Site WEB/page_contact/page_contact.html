@@ -1,142 +1,601 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Evan BENOIT</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Evan BENOIT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 50px;
+      align-items: start;
+    }
 
-        /* Barre de navigation */
-        nav {
-            background: #333;
-            color: white;
-            padding: 15px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-        }
+    /* Colonne infos ── */
+    .contact-info h2 { font-size: 1.7rem; margin-bottom: 16px; }
+    .contact-info > p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            justify-content: center;
-            margin: 0;
-            padding: 0;
-        }
+    .contact-cards { display: flex; flex-direction: column; gap: 14px; }
+    .contact-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    .contact-card:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+      box-shadow: var(--shadow);
+    }
+    .contact-card-icon {
+      width: 46px;
+      height: 46px;
+      background: rgba(0,173,181,0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .contact-card-content { flex: 1; }
+    .contact-card-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+    .contact-card-value {
+      font-size: 0.97rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .contact-card-arrow {
+      color: var(--accent);
+      font-size: 1.1rem;
+      opacity: 0;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .contact-card:hover .contact-card-arrow { opacity: 1; transform: translateX(3px); }
 
-        nav ul li {
-            margin: 0 20px;
-        }
+    /* Réseaux sociaux */
+    .socials-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--text-muted);
+      margin: 28px 0 14px;
+    }
+    .socials-row { display: flex; gap: 12px; }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: var(--transition);
+      background: var(--white);
+      color: var(--text);
+      text-decoration: none;
+    }
+    .social-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,173,181,0.05);
+    }
 
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    /* Colonne formulaire ── */
+    .contact-form-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 44px;
+      box-shadow: var(--shadow);
+      border: 1.5px solid var(--border);
+    }
+    .form-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--navy);
+    }
+    .form-subtitle {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 30px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
 
-        nav ul li a:hover {
-            color: #00adb5;
-        }
+    /* Message de succès */
+    .form-success {
+      display: none;
+      background: rgba(0,173,181,0.08);
+      border: 1.5px solid rgba(0,173,181,0.3);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-top: 16px;
+      text-align: center;
+    }
 
-        section {
-            padding: 80px 20px;
-            min-height: 100vh;
-        }
+    /* Notice Formspree */
+    .formspree-note {
+      background: rgba(0,0,0,0.03);
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .formspree-note strong { color: var(--accent); }
+    .formspree-note a { color: var(--accent); text-decoration: underline; }
 
-        #presentation {
-            background: #f4f4f4;
-            text-align: center;
-        }
+    /* ── Section CV ── */
+    .cv-section {
+      margin-top: 60px;
+    }
+    .cv-section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.35rem;
+      font-weight: 700;
+      font-family: 'Syne', sans-serif;
+      color: var(--navy);
+      margin-bottom: 24px;
+    }
+    .cv-section-title .section-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(0,173,181,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .cv-wrapper {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1.5px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .cv-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .cv-toolbar-label {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .cv-actions { display: flex; gap: 10px; }
+    .cv-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+    }
+    .cv-btn-download {
+      background: var(--accent);
+      color: white;
+    }
+    .cv-btn-download:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+    .cv-btn-expand {
+      background: var(--white);
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+    .cv-btn-expand:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
 
-        #competences {
-            background: #e2e2e2;
-        }
+    /* Aperçu PDF embarqué */
+    .cv-preview {
+      width: 100%;
+      height: 600px;
+      display: block;
+      border: none;
+    }
+    .cv-placeholder {
+      width: 100%;
+      height: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: linear-gradient(135deg, #f8fafc 0%, #e8f8f8 100%);
+      color: var(--text-muted);
+    }
+    .cv-placeholder-icon { font-size: 3rem; }
+    .cv-placeholder p { font-size: 0.9rem; text-align: center; max-width: 300px; line-height: 1.6; }
 
-        #projets {
-            background: #f4f4f4;
-        }
+    /* Modale agrandissement CV */
+    .cv-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .cv-modal.open { display: flex; }
+    .cv-modal-inner {
+      background: white;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 900px;
+      max-height: 90vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .cv-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cv-modal-header span { font-weight: 600; font-size: 1rem; color: var(--navy); }
+    .cv-modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      line-height: 1;
+      padding: 0 4px;
+      transition: color var(--transition);
+    }
+    .cv-modal-close:hover { color: var(--text); }
+    .cv-modal iframe {
+      width: 100%;
+      flex: 1;
+      border: none;
+      min-height: 70vh;
+    }
 
-        #contact {
-            background: #e2e2e2;
-        }
-
-        h1, h2 {
-            text-align: center;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: auto;
-        }
-
-        .skills, .projects {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            width: 250px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        form {
-            max-width: 500px;
-            margin: auto;
-            display: flex;
-            flex-direction: column;
-        }
-
-        input, textarea {
-            margin-bottom: 10px;
-            padding: 10px;
-            font-size: 16px;
-        }
-
-        button {
-            padding: 10px;
-            background: #333;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #00adb5;
-        }
-    </style>
+    /* Responsive */
+    @media (max-width: 860px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .contact-form-card { padding: 28px 22px; }
+      .form-row { grid-template-columns: 1fr; }
+      .cv-preview { height: 400px; }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Barre de navigation -->
-    <nav>
-        <ul>
-            <li><a href="#presentation">Présentation</a></li>
-            <li><a href="#competences">Compétences</a></li>
-            <li><a href="#projets">Projets</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+  <!-- ── Navigation ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">EB<span>.</span></a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Accueil</a></li>
+        <li><a href="../page_presentation/page_presentation.html">À propos</a></li>
+        <li><a href="../page_competences/page_competences.html">Compétences</a></li>
+        <li><a href="page_contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <section id="contact">
-        <div class="container">
-            <h2>Contact</h2>
-            <form>
-                <input type="text" placeholder="Votre nom" required>
-                <input type="email" placeholder="Votre email" required>
-                <textarea placeholder="Votre message" rows="5" required></textarea>
-                <button type="submit">Envoyer</button>
+  <!-- ── Bannière ── -->
+  <div class="page-hero">
+    <div class="container">
+      <div class="tag">Prenons contact</div>
+      <h1>Me contacter</h1>
+      <p>Une question, un projet, une opportunité ? Je suis disponible.</p>
+      <div class="breadcrumb">
+        <a href="../index.html">Accueil</a>
+        <span>›</span>
+        <span>Contact</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Contenu ── -->
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="contact-grid">
+
+          <!-- COLONNE GAUCHE : Coordonnées -->
+          <div class="contact-info">
+            <div class="tag">Coordonnées</div>
+            <h2>Restons en contact</h2>
+            <p>
+              N'hésitez pas à me contacter pour tout échange professionnel,
+              opportunité de stage, alternance, ou simple curiosité à propos de mes projets.
+            </p>
+
+            <div class="contact-cards">
+
+              <!-- Email -->
+              <a href="mailto:votre@email.fr" class="contact-card">
+                <div class="contact-card-icon">📧</div>
+                <div class="contact-card-content">
+                  <div class="contact-card-label">E-mail</div>
+                  <div class="contact-card-value">votre@email.fr</div>
+                </div>
+                <span class="contact-card-arrow">→</span>
+              </a>
+
+              <!-- Téléphone -->
+              <a href="tel:+33600000000" class="contact-card">
+                <div class="contact-card-icon">📱</div>
+                <div class="contact-card-content">
+                  <div class="contact-card-label">Téléphone</div>
+                  <div class="contact-card-value">+33 6 00 00 00 00</div>
+                </div>
+                <span class="contact-card-arrow">→</span>
+              </a>
+
+              <!-- Localisation -->
+              <div class="contact-card" style="cursor:default;">
+                <div class="contact-card-icon">📍</div>
+                <div class="contact-card-content">
+                  <div class="contact-card-label">Localisation</div>
+                  <div class="contact-card-value">Lannion, France</div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Réseaux sociaux -->
+            <p class="socials-title">Retrouvez-moi sur</p>
+            <div class="socials-row">
+              <a href="#" class="social-btn" target="_blank" rel="noopener">
+                <span>in</span> LinkedIn
+              </a>
+              <a href="#" class="social-btn" target="_blank" rel="noopener">
+                <span>◉</span> GitHub
+              </a>
+            </div>
+          </div>
+
+          <!-- COLONNE DROITE : Formulaire -->
+          <div class="contact-form-card">
+            <p class="form-title">Envoyez-moi un message</p>
+            <p class="form-subtitle">Je vous réponds généralement sous 24–48 h.</p>
+
+            <div class="formspree-note">
+              💡 <strong>Pour activer ce formulaire :</strong>
+              Créez un compte gratuit sur <a href="https://formspree.io" target="_blank">formspree.io</a>,
+              puis remplacez <code>VOTRE_ID</code> dans le code source par votre identifiant de formulaire.
+            </div>
+
+            <form id="contactForm" action="https://formspree.io/f/VOTRE_ID" method="POST">
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="nom">Nom</label>
+                  <input type="text" id="nom" name="nom" placeholder="Dupont" required>
+                </div>
+                <div class="form-group">
+                  <label for="prenom">Prénom</label>
+                  <input type="text" id="prenom" name="prenom" placeholder="Marie">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Adresse e-mail</label>
+                <input type="email" id="email" name="email" placeholder="marie.dupont@exemple.fr" required>
+              </div>
+
+              <div class="form-group">
+                <label for="sujet">Sujet</label>
+                <input type="text" id="sujet" name="sujet" placeholder="Votre sujet…">
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" placeholder="Bonjour Evan, je souhaite vous contacter à propos de…" required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:1rem;">
+                Envoyer le message ✉️
+              </button>
+
+              <div class="form-success" id="formSuccess">
+                ✅ Votre message a bien été envoyé ! Je vous réponds très vite.
+              </div>
+
             </form>
-        </div>
-    </section>
+          </div>
 
+        </div>
+
+        <!-- ── Section CV ── -->
+        <div class="cv-section">
+          <div class="cv-section-title">
+            <span class="section-icon">📄</span>
+            Mon CV
+          </div>
+
+          <div class="cv-wrapper">
+            <div class="cv-toolbar">
+              <span class="cv-toolbar-label">CV — Evan BENOIT</span>
+              <div class="cv-actions">
+                <button class="cv-btn cv-btn-expand" onclick="openCvModal()">
+                  🔍 Agrandir
+                </button>
+                <!--
+                  Remplacez le href ci-dessous par le chemin vers votre CV PDF.
+                  Exemple : href="../assets/downloads/CV_Evan_BENOIT.pdf"
+                -->
+                <a href="../assets/downloads/CV_Evan_BENOIT.pdf" download class="cv-btn cv-btn-download">
+                  ⬇️ Télécharger le CV
+                </a>
+              </div>
+            </div>
+
+            <!--
+              Option A : Si vous avez un CV en PDF, remplacez le bloc .cv-placeholder
+              par un iframe pointant vers votre fichier :
+
+              <iframe
+                src="../assets/downloads/CV_Evan_BENOIT.pdf"
+                class="cv-preview"
+                title="CV Evan BENOIT">
+              </iframe>
+
+              Option B (actuelle) : placeholder affiché tant que le fichier n'est pas ajouté.
+            -->
+            <div class="cv-placeholder" id="cvPlaceholder">
+              <div class="cv-placeholder-icon">📄</div>
+              <p>Ajoutez votre CV en PDF dans <code>assets/downloads/CV_Evan_BENOIT.pdf</code>, puis remplacez ce bloc par l'iframe commenté dans le code source.</p>
+            </div>
+
+            <!-- Décommentez et adaptez ce bloc une fois le PDF ajouté :
+            <iframe
+              src="../assets/downloads/CV_Evan_BENOIT.pdf"
+              class="cv-preview"
+              id="cvIframe"
+              title="CV Evan BENOIT">
+            </iframe>
+            -->
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ── Modale CV agrandi ── -->
+  <div class="cv-modal" id="cvModal">
+    <div class="cv-modal-inner">
+      <div class="cv-modal-header">
+        <span>CV — Evan BENOIT</span>
+        <button class="cv-modal-close" onclick="closeCvModal()" aria-label="Fermer">×</button>
+      </div>
+      <!--
+        Remplacez le src ci-dessous par le chemin vers votre CV PDF.
+      -->
+      <iframe src="../assets/downloads/CV_Evan_BENOIT.pdf" title="CV Evan BENOIT (agrandi)"></iframe>
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <h4>Evan BENOIT</h4>
+          <p>Étudiant en BUT Informatique, passionné de développement et de création.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="GitHub">GH</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="../index.html">Accueil</a>
+          <a href="../page_presentation/page_presentation.html">À propos</a>
+          <a href="../page_competences/page_competences.html">Compétences &amp; Projets</a>
+          <a href="page_contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:votre@email.fr">votre@email.fr</a>
+          <a href="tel:+33600000000">+33 6 00 00 00 00</a>
+          <p>France</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Evan BENOIT — Portfolio réalisé en HTML / CSS / JS</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    // Formulaire contact
+    const form = document.getElementById('contactForm');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        if (form.action.includes('VOTRE_ID')) return;
+        e.preventDefault();
+        const data = new FormData(form);
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST', body: data,
+            headers: { 'Accept': 'application/json' }
+          });
+          if (res.ok) {
+            form.reset();
+            document.getElementById('formSuccess').style.display = 'block';
+          }
+        } catch {}
+      });
+    }
+
+    // Modale CV
+    function openCvModal() {
+      document.getElementById('cvModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCvModal() {
+      document.getElementById('cvModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    // Fermer en cliquant sur le fond
+    document.getElementById('cvModal').addEventListener('click', function(e) {
+      if (e.target === this) closeCvModal();
+    });
+    // Fermer avec Échap
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeCvModal();
+    });
+  </script>
 </body>
 </html>

@@ -1,150 +1,188 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Evan BENOIT</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-        }
-
-        /* Barre de navigation */
-        nav {
-            background: #333;
-            color: white;
-            padding: 15px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            justify-content: center;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav ul li {
-            margin: 0 20px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        nav ul li a:hover {
-            color: #00adb5;
-        }
-
-        section {
-            padding: 80px 20px;
-            min-height: 100vh;
-        }
-
-        #presentation {
-            background: #f4f4f4;
-            text-align: center;
-        }
-
-        #competences {
-            background: #e2e2e2;
-        }
-
-        #projets {
-            background: #f4f4f4;
-        }
-
-        #contact {
-            background: #e2e2e2;
-        }
-
-        h1, h2 {
-            text-align: center;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: auto;
-        }
-
-        .skills, .projects {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            width: 250px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        form {
-            max-width: 500px;
-            margin: auto;
-            display: flex;
-            flex-direction: column;
-        }
-
-        input, textarea {
-            margin-bottom: 10px;
-            padding: 10px;
-            font-size: 16px;
-        }
-
-        button {
-            padding: 10px;
-            background: #333;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #00adb5;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compétences &amp; Projets — Evan BENOIT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .competences-intro { text-align: center; max-width: 640px; margin: 0 auto 70px; }
+    .competences-intro p { color: var(--text-muted); font-size: 1.02rem; line-height: 1.8; }
+    .sae-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 28px; }
+    .sae-card { background: var(--white); border-radius: var(--radius-lg); border: 1.5px solid var(--border); box-shadow: var(--shadow-sm); overflow: hidden; text-decoration: none; display: flex; flex-direction: column; transition: var(--transition); }
+    .sae-card:hover { border-color: var(--accent); box-shadow: var(--shadow-lg); transform: translateY(-6px); }
+    .sae-card-stripe { height: 5px; background: linear-gradient(90deg, var(--accent), var(--accent-hover)); }
+    .sae-card-img { width: 100%; height: 180px; background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.25); font-size: 3rem; position: relative; overflow: hidden; }
+    .sae-card-img img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+    .sae-badge { position: absolute; top: 12px; left: 12px; background: rgba(0,173,181,0.92); color: white; font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; letter-spacing: .04em; text-transform: uppercase; z-index: 2; }
+    .sae-card-body { padding: 22px 24px 20px; flex: 1; display: flex; flex-direction: column; }
+    .sae-card-label { font-size: 0.75rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+    .sae-card-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--navy); margin-bottom: 10px; line-height: 1.3; }
+    .sae-card-desc { font-size: 0.87rem; color: var(--text-muted); line-height: 1.65; flex: 1; }
+    .sae-card-footer { padding: 14px 24px 18px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); gap: 10px; }
+    .sae-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .sae-tag { background: rgba(0,173,181,0.1); color: var(--accent); font-size: 0.7rem; font-weight: 600; padding: 3px 10px; border-radius: 50px; }
+    .sae-arrow { font-size: 1.1rem; color: var(--accent); transition: transform var(--transition); flex-shrink: 0; }
+    .sae-card:hover .sae-arrow { transform: translateX(5px); }
+    .section-label { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+    .section-label-line { flex: 1; height: 1px; background: var(--border); }
+    .section-label-text { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); white-space: nowrap; }
+    @media (max-width: 680px) { .sae-grid { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
+  <nav>
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">EB<span>.</span></a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Accueil</a></li>
+        <li><a href="../page_presentation/page_presentation.html">À propos</a></li>
+        <li><a href="page_competences.html" class="active">Compétences</a></li>
+        <li><a href="../page_contact/page_contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <!-- Barre de navigation -->
-    <nav>
-        <ul>
-            <li><a href="#presentation">Présentation</a></li>
-            <li><a href="#competences">Compétences</a></li>
-            <li><a href="#projets">Projets</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+  <div class="page-hero">
+    <div class="container">
+      <div class="tag">BUT Informatique — 1ère année</div>
+      <h1>Mes SAE</h1>
+      <p>6 Situations d'Apprentissage et d'Évaluation réalisées en première année de BUT Informatique.</p>
+      <div class="breadcrumb">
+        <a href="../index.html">Accueil</a><span>›</span><span>Compétences &amp; Projets</span>
+      </div>
+    </div>
+  </div>
 
-    <!-- Compétences -->
-    <section id="competences">
-        <div class="container">
-            <h2>Compétences et projets</h2>
-            <p>Texte explicatif global</p>
-            <div class="skills">
-                <div class="card">HTML / CSS</div>
-                <div class="card">JavaScript</div>
-                <div class="card">React</div>
-                <div class="card">Node.js</div>
-            </div>
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="competences-intro">
+          <p>En première année de BUT Informatique, chaque compétence du référentiel est illustrée par une SAE (Situation d'Apprentissage et d'Évaluation). Cliquez sur une carte pour découvrir les détails du projet.</p>
         </div>
+        <div class="section-label">
+          <span class="section-label-line"></span>
+          <span class="section-label-text">6 projets — Semestre 1</span>
+          <span class="section-label-line"></span>
+        </div>
+        <div class="sae-grid">
+
+          <a href="../page_projet/sae101.html" class="sae-card">
+            <div class="sae-card-stripe"></div>
+            <div class="sae-card-img">🎮<span class="sae-badge">C1 — Développer</span></div>
+            <div class="sae-card-body">
+              <div class="sae-card-label">SAE 1.01</div>
+              <div class="sae-card-title">Implémentation d'un besoin client — Sokoban</div>
+              <div class="sae-card-desc">Conception complète d'un jeu de Sokoban en langage C : maquette, cahier des tests, algorithme, code source et traces d'exécution, en 2 versions itératives.</div>
+            </div>
+            <div class="sae-card-footer">
+              <div class="sae-tags"><span class="sae-tag">Langage C</span><span class="sae-tag">Algorithmique</span></div>
+              <span class="sae-arrow">→</span>
+            </div>
+          </a>
+
+          <a href="../page_projet/sae102.html" class="sae-card">
+            <div class="sae-card-stripe"></div>
+            <div class="sae-card-img">🔄<span class="sae-badge">C2 — Algorithmique</span></div>
+            <div class="sae-card-body">
+              <div class="sae-card-label">SAE 1.02</div>
+              <div class="sae-card-title">Comparaison d'approches algorithmiques</div>
+              <div class="sae-card-desc">Optimisation des déplacements dans le Sokoban en C : déplacements automatiques puis optimisés, avec comparaison et analyse des différentes approches algorithmiques.</div>
+            </div>
+            <div class="sae-card-footer">
+              <div class="sae-tags"><span class="sae-tag">Langage C</span><span class="sae-tag">Optimisation</span></div>
+              <span class="sae-arrow">→</span>
+            </div>
+          </a>
+
+          <a href="../page_projet/sae103.html" class="sae-card">
+            <div class="sae-card-stripe"></div>
+            <div class="sae-card-img">🐳<span class="sae-badge">C3 — Environnement</span></div>
+            <div class="sae-card-body">
+              <div class="sae-card-label">SAE 1.03</div>
+              <div class="sae-card-title">Installation d'un poste pour le développement</div>
+              <div class="sae-card-desc">Mise en place d'un workflow de conteneurs Docker chaînés générant des PDFs de rapports commerciaux régionaux — environnement redéployable et documenté.</div>
+            </div>
+            <div class="sae-card-footer">
+              <div class="sae-tags"><span class="sae-tag">Docker</span><span class="sae-tag">Linux</span><span class="sae-tag">Scripts</span></div>
+              <span class="sae-arrow">→</span>
+            </div>
+          </a>
+
+          <a href="../page_projet/sae104.html" class="sae-card">
+            <div class="sae-card-stripe"></div>
+            <div class="sae-card-img">🗄️<span class="sae-badge">C4 — Base de données</span></div>
+            <div class="sae-card-body">
+              <div class="sae-card-label">SAE 1.04</div>
+              <div class="sae-card-title">Création d'une base de données</div>
+              <div class="sae-card-desc">À partir de documents d'un fournisseur énergétique : rétro-ingénierie, modélisation objet, passage au modèle relationnel, requêtes SQL et extension de la base.</div>
+            </div>
+            <div class="sae-card-footer">
+              <div class="sae-tags"><span class="sae-tag">SQL</span><span class="sae-tag">Modélisation</span><span class="sae-tag">BDD</span></div>
+              <span class="sae-arrow">→</span>
+            </div>
+          </a>
+
+          <a href="../page_projet/sae105.html" class="sae-card">
+            <div class="sae-card-stripe"></div>
+            <div class="sae-card-img">🌸<span class="sae-badge">C5 — Besoins clients</span></div>
+            <div class="sae-card-body">
+              <div class="sae-card-label">SAE 1.05</div>
+              <div class="sae-card-title">Site web — Découverte du Japon</div>
+              <div class="sae-card-desc">Création en équipe d'un site web promouvant le Japon : expression des besoins, arborescence, charte graphique, maquette, puis développement HTML/CSS/JS avec GIT.</div>
+            </div>
+            <div class="sae-card-footer">
+              <div class="sae-tags"><span class="sae-tag">HTML/CSS</span><span class="sae-tag">GIT</span><span class="sae-tag">Équipe</span></div>
+              <span class="sae-arrow">→</span>
+            </div>
+          </a>
+
+          <a href="../page_projet/sae106.html" class="sae-card">
+            <div class="sae-card-stripe"></div>
+            <div class="sae-card-img">🤝<span class="sae-badge">C6 — Travail en équipe</span></div>
+            <div class="sae-card-body">
+              <div class="sae-card-label">SAE 1.06</div>
+              <div class="sae-card-title">Découverte de l'environnement économique et écologique</div>
+              <div class="sae-card-desc">Analyse des engagements RSE et environnementaux de LEGO en équipe : veille documentaire, synthèse écrite et double présentation orale (individuelle et collective).</div>
+            </div>
+            <div class="sae-card-footer">
+              <div class="sae-tags"><span class="sae-tag">RSE</span><span class="sae-tag">Présentation</span><span class="sae-tag">Équipe</span></div>
+              <span class="sae-arrow">→</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
     </section>
+  </main>
 
-    <footer>
-        <h3>Contact</h3>
-        <p>Liste des réseaux</p>
-        <p>Bouton vers page contact</p>
-    </footer>
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <h4>Evan BENOIT</h4>
+          <p>Étudiant en BUT Informatique, passionné de développement et de création.</p>
+          <div class="footer-socials"><a href="#" aria-label="LinkedIn">in</a><a href="#" aria-label="GitHub">GH</a></div>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="../index.html">Accueil</a>
+          <a href="../page_presentation/page_presentation.html">À propos</a>
+          <a href="page_competences.html">Compétences &amp; Projets</a>
+          <a href="../page_contact/page_contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:votre@email.fr">votre@email.fr</a>
+          <a href="tel:+33600000000">+33 6 00 00 00 00</a>
+          <p>France</p>
+        </div>
+      </div>
+      <div class="footer-bottom"><p>© 2025 Evan BENOIT — Portfolio réalisé en HTML / CSS / JS</p></div>
+    </div>
+  </footer>
 
+  <script src="../js/main.js"></script>
 </body>
 </html>

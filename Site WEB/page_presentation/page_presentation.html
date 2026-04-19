@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>À propos — Evan BENOIT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* ── Intro : photo + texte ── */
+    .about-intro {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 70px;
+      align-items: start;
+    }
+    .about-photo {
+      position: sticky;
+      top: calc(var(--nav-h) + 24px);
+    }
+    .about-photo img {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+    .about-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 4/5;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, #e8f0fe 0%, #d4eff0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: var(--shadow);
+    }
+    .info-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .info-chip {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 0.82rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-sm);
+    }
+    .info-chip .icon { font-size: 1rem; }
+
+    .about-text h2 {
+      margin-bottom: 18px;
+      font-size: 2rem;
+    }
+    .about-text p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-size: 1.01rem;
+      line-height: 1.85;
+    }
+    .about-text p strong { color: var(--text); }
+
+    /* ── Section alternée ── */
+    .about-section {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 50px;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+    .about-section h3 {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.35rem;
+    }
+    .about-section h3 .section-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(0,173,181,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .about-section p {
+      color: var(--text-muted);
+      line-height: 1.85;
+      font-size: 1rem;
+    }
+
+    /* ── Timeline ── */
+    .timeline {
+      position: relative;
+      padding-left: 28px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), rgba(0,173,181,0.1));
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 32px;
+    }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -25px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 3px solid var(--white);
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+    .timeline-date {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .timeline-item h4 {
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+      color: var(--navy);
+    }
+    .timeline-item p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Centres d'intérêt ── */
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .interest-card {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 18px;
+      text-align: center;
+      transition: var(--transition);
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .interest-card:hover {
+      border-color: var(--accent);
+      background: rgba(0,173,181,0.05);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+    .interest-card .interest-icon { font-size: 2rem; margin-bottom: 10px; }
+    .interest-card .interest-title {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0;
+      transition: var(--transition);
+    }
+
+    /* Texte caché, visible au hover */
+    .interest-card .interest-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      margin-top: 0;
+      transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.3s ease;
+    }
+    .interest-card:hover .interest-desc {
+      max-height: 120px;
+      opacity: 1;
+      margin-top: 10px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .about-intro { grid-template-columns: 1fr; gap: 36px; }
+      .about-photo  { position: static; max-width: 300px; }
+      .about-section { padding: 30px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">EB<span>.</span></a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Accueil</a></li>
+        <li><a href="page_presentation.html">Présentation</a></li>
+        <li><a href="../page_competences/page_competences.html">Compétences</a></li>
+        <li><a href="../page_contact/page_contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── Bannière haut de page ── -->
+  <div class="page-hero">
+    <div class="container">
+      <div class="tag">Qui suis-je ?</div>
+      <h1>Présentation</h1>
+      <p>Mon parcours, mes motivations, et ce qui me passionne.</p>
+      <div class="breadcrumb">
+        <a href="../index.html">Accueil</a>
+        <span>›</span>
+        <span>À propos</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Contenu principal ── -->
+  <main>
+
+    <!-- Section intro : photo + bio -->
+    <section class="section">
+      <div class="container">
+        <div class="about-intro">
+
+          <!-- Photo -->
+          <div class="about-photo">
+            <!--
+              Remplacez par :
+              <img src="../assets/images/photo.png" alt="Evan BENOIT">
+            -->
+            <div class="about-photo-placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" style="opacity:.3">
+                <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+              </svg>
+              <span>Votre photo ici</span>
+            </div>
+            <div class="info-chips">
+              <div class="info-chip"><span class="icon">🎓</span> BUT Informatique</div>
+              <div class="info-chip"><span class="icon">📍</span> Lannion</div>
+              <div class="info-chip"><span class="icon">📅</span> Né le 30 Mai 2008</div>
+            </div>
+          </div>
+
+          <!-- Texte -->
+          <div class="about-text">
+            <div class="tag">Présentation</div>
+            <h2>Bonjour, je suis <span class="accent">Evan BENOIT</span></h2>
+            <p>
+              J'ai 17 ans et je suis en première année de BUT Informatique à l'IUT de Lannion.
+              J'ai toujours eu cette curiosité un peu particulière : quand quelque chose m'intéresse,
+              j'ai besoin de comprendre comment ça marche en dessous — que ce soit un jeu vidéo, un logiciel,
+              ou n'importe quel système.
+            </p>
+            <p>
+              Cette formation me permet d'explorer vraiment les deux faces du métier : la théorie (algorithmes, bases de données, réseaux)
+              et la pratique (projets en équipe, développement, mise en production). En dehors des cours,
+              je nage, je roule, je lis des mangas et je bidouille des petits programmes avec des amis.
+            </p>
+            <p>
+              Mon objectif après le BUT ? Continuer vers une école d'ingénieurs. Je ne sais pas encore dans quel domaine
+              précis je veux aller — et pour l'instant, j'aime bien l'idée de tout explorer avant de choisir.
+            </p>
+            <a href="../page_contact/page_contact.html" class="btn btn-primary" style="margin-top:12px;">
+              Me contacter
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Section : Pourquoi l'informatique -->
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="about-section">
+          <h3>
+            <span class="section-icon">💡</span>
+            Pourquoi l'informatique ?
+          </h3>
+          <p>
+            Mon père m'a mis devant un ordinateur très tôt, et ça a pas mal compté dans l'histoire.
+            Ce qui m'a vraiment accroché au départ, c'est les jeux vidéo — pas juste y jouer, mais me demander
+            comment c'était fait. Comment un jeu pouvait réagir à ce que je faisais ? Quelle logique se cachait derrière ?
+            J'ai commencé à bidouiller des consoles et des logiciels, juste pour voir.
+          </p>
+          <p style="margin-top:14px;">
+            De fil en aiguille, j'ai réalisé que ce qui me plaisait vraiment, c'était le fait de créer des choses :
+            un programme qui résout un problème, un outil qui aide mes amis, un site qui prend forme depuis zéro.
+            L'informatique, c'est l'endroit où la logique et la créativité se rencontrent — et ça, ça m'a tout de suite parlé.
+          </p>
+        </div>
+
+        <!-- Timeline : parcours -->
+        <div class="about-section">
+          <h3>
+            <span class="section-icon">🗓️</span>
+            Mon parcours
+          </h3>
+          <div class="timeline">
+
+            <div class="timeline-item">
+              <div class="timeline-date">2025 — 202X</div>
+              <h4>BUT Informatique</h4>
+              <p>IUT de Lannion — En cours</p>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-date">2022 — 2025</div>
+              <h4>Lycée filière générale</h4>
+              <p>Saint-Joseph Bossuet, Lannion</p>
+              <p>Diplôme du Baccalauréat — Mention Très Bien</p>
+              <p>Spécialités : Mathématiques et Numérique et Sciences Informatique</p>
+              <p>Options : Maths Expertes et Sport</p>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-date">2022 — 2023</div>
+              <h4>Brevet d'Initiation à l'Aéronautique</h4>
+              <p>Aéroclub de Lannion — Mention Très Bien</p>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-date">2018 — 2022</div>
+              <h4>Collège</h4>
+              <p>Saint-Yves, Tréguier</p>
+              <p>Diplôme du Brevet — Mention Très Bien</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Centres d'intérêt -->
+        <div class="about-section">
+          <h3>
+            <span class="section-icon">🎯</span>
+            Mes centres d'intérêt
+          </h3>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:20px;">Passez la souris sur une carte pour en savoir plus.</p>
+          <div class="interests-grid">
+
+            <div class="interest-card">
+              <div class="interest-icon">💻</div>
+              <span class="interest-title">Développement</span>
+              <p class="interest-desc">Je code des petits outils utiles pour mes amis et moi. Parfois pour répondre à un vrai besoin, parfois juste pour tester une idée. Je découvre encore les langages au fur et à mesure.</p>
+            </div>
+
+            <div class="interest-card">
+              <div class="interest-icon">🎮</div>
+              <span class="interest-title">Jeux vidéo</span>
+              <p class="interest-desc">Passion depuis l'enfance. J'aime autant les jeux solo immersifs que les jeux compétitifs en ligne — tout dépend de l'humeur. C'est d'ailleurs ce monde qui m'a donné envie de faire de l'informatique.</p>
+            </div>
+
+            <div class="interest-card">
+              <div class="interest-icon">🎵</div>
+              <span class="interest-title">Musique</span>
+              <p class="interest-desc">J'écoute beaucoup de rap et de hip-hop, et je touche un peu au piano — avec plus ou moins de succès. La musique, c'est mon espace de décompression entre deux sessions de code.</p>
+            </div>
+
+            <div class="interest-card">
+              <div class="interest-icon">🏊</div>
+              <span class="interest-title">Sport</span>
+              <p class="interest-desc">Je pratique la natation, le running et le cyclisme. Des sports individuels qui me permettent de me vider la tête et de garder un rythme, surtout en période chargée.</p>
+            </div>
+
+            <div class="interest-card">
+              <div class="interest-icon">📚</div>
+              <span class="interest-title">Lecture</span>
+              <p class="interest-desc">Grand fan de JoJo's Bizarre Adventure, que je suis depuis longtemps. J'aime aussi explorer d'autres mangas et BD au gré des envies, surtout dans les genres SF et fantaisie.</p>
+            </div>
+
+            <div class="interest-card">
+              <div class="interest-icon">🎬</div>
+              <span class="interest-title">Cinéma &amp; Séries</span>
+              <p class="interest-desc">J'aime les deux à égalité. Plutôt attiré par l'action, l'aventure, la SF et la comédie — tout ce qui construit un univers cohérent et réussi à m'embarquer.</p>
+            </div>
+
+            <div class="interest-card">
+              <div class="interest-icon">✈️</div>
+              <span class="interest-title">Voyages</span>
+              <p class="interest-desc">Découvrir d'autres cultures, d'autres façons de vivre. C'est une ouverture sur le monde que je considère aussi importante que les études.</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <h4>Evan BENOIT</h4>
+          <p>Étudiant en BUT Informatique, passionné de développement et de création.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="GitHub">GH</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="../index.html">Accueil</a>
+          <a href="page_presentation.html">À propos</a>
+          <a href="../page_competences/page_competences.html">Compétences &amp; Projets</a>
+          <a href="../page_contact/page_contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:votre@email.fr">votre@email.fr</a>
+          <a href="tel:+33600000000">+33 6 00 00 00 00</a>
+          <p>France</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Evan BENOIT — Portfolio réalisé en HTML / CSS / JS</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

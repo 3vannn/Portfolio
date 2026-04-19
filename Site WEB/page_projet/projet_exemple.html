@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Personnel — Evan BENOIT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-hero {
+      background: var(--navy);
+      padding: calc(var(--nav-h) + 50px) 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 80% at 80% 50%, rgba(0,173,181,0.12) 0%, transparent 70%);
+    }
+    .project-hero-inner { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: start; position: relative; }
+    .project-competence-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,173,181,0.15); border: 1px solid rgba(0,173,181,0.3); color: var(--accent); font-size: 0.8rem; font-weight: 600; padding: 6px 14px; border-radius: 50px; margin-bottom: 16px; }
+    .project-hero h1 { color: var(--white); font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 16px; }
+    .project-hero-desc { color: rgba(255,255,255,0.65); font-size: 1.02rem; max-width: 600px; line-height: 1.8; margin-bottom: 24px; }
+    .project-tech-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .project-tech-badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.8); font-size: 0.8rem; padding: 5px 14px; border-radius: 50px; }
+    .project-meta { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-lg); padding: 24px; min-width: 220px; }
+    .meta-item { margin-bottom: 18px; }
+    .meta-item:last-child { margin-bottom: 0; }
+    .meta-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: .06em; color: rgba(255,255,255,0.4); font-weight: 600; margin-bottom: 5px; }
+    .meta-value { color: rgba(255,255,255,0.85); font-size: 0.9rem; font-weight: 500; }
+    .project-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+    .project-breadcrumb a { color: rgba(255,255,255,0.55); transition: color var(--transition); }
+    .project-breadcrumb a:hover { color: var(--accent); }
+    .project-content { max-width: 820px; }
+    .content-section { background: var(--white); border-radius: var(--radius-lg); padding: 42px; margin-bottom: 28px; box-shadow: var(--shadow-sm); border: 1.5px solid var(--border); }
+    .content-section h2 { font-size: 1.4rem; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+    .content-section h2 .icon { width: 38px; height: 38px; background: rgba(0,173,181,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .content-section p { color: var(--text-muted); line-height: 1.85; margin-bottom: 14px; font-size: 1rem; }
+    .content-section p:last-child { margin-bottom: 0; }
+    .realisation-list { list-style: none; padding: 0; margin-top: 14px; }
+    .realisation-list li { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.97rem; color: var(--text-muted); line-height: 1.6; }
+    .realisation-list li:last-child { border-bottom: none; }
+    .realisation-list li::before { content: '✓'; color: var(--accent); font-weight: 700; font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+    .carousel-section { background: var(--white); border-radius: var(--radius-lg); padding: 42px; margin-bottom: 28px; box-shadow: var(--shadow-sm); border: 1.5px solid var(--border); }
+    .carousel-section h2 { font-size: 1.4rem; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+    .carousel-section h2 .icon { width: 38px; height: 38px; background: rgba(0,173,181,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .project-nav { display: flex; justify-content: space-between; gap: 16px; padding-top: 10px; }
+    .project-nav-btn { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px 24px; flex: 1; display: flex; align-items: center; gap: 12px; transition: var(--transition); text-decoration: none; color: var(--text); }
+    .project-nav-btn:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow); }
+    .project-nav-btn.next { justify-content: flex-end; text-align: right; }
+    .project-nav-label { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+    .project-nav-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--navy); }
+    @media (max-width: 860px) {
+      .project-hero-inner { grid-template-columns: 1fr; }
+      .project-meta { min-width: auto; }
+      .content-section, .carousel-section { padding: 26px 20px; }
+      .project-nav { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">EB<span>.</span></a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Accueil</a></li>
+        <li><a href="../page_presentation/page_presentation.html">À propos</a></li>
+        <li><a href="../page_competences/page_competences.html">Compétences</a></li>
+        <li><a href="../page_contact/page_contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="project-hero">
+    <div class="container">
+      <div class="project-hero-inner">
+        <div>
+          <div class="project-breadcrumb">
+            <a href="../index.html">Accueil</a><span>›</span>
+            <a href="../page_competences/page_competences.html">Compétences</a><span>›</span>
+            <span>Portfolio Personnel</span>
+          </div>
+          <div class="project-competence-badge"><span>●</span> C3 — Développer la présence en ligne</div>
+          <h1>Portfolio Personnel</h1>
+          <p class="project-hero-desc">
+            Conception et réalisation d'un site portfolio en HTML/CSS/JavaScript pour présenter
+            mes compétences, mes projets et mes coordonnées dans le cadre de ma formation BUT Informatique.
+          </p>
+          <div class="project-tech-list">
+            <span class="project-tech-badge">HTML5</span>
+            <span class="project-tech-badge">CSS3</span>
+            <span class="project-tech-badge">JavaScript</span>
+          </div>
+        </div>
+        <div class="project-meta">
+          <div class="meta-item"><div class="meta-label">Date</div><div class="meta-value">2024 – 2025</div></div>
+          <div class="meta-item"><div class="meta-label">Contexte</div><div class="meta-value">Projet scolaire BUT Informatique</div></div>
+          <div class="meta-item"><div class="meta-label">Durée</div><div class="meta-value">En cours</div></div>
+          <div class="meta-item"><div class="meta-label">Équipe</div><div class="meta-value">Seul</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="project-content">
+
+          <div class="content-section">
+            <h2><span class="icon">🎯</span>Contexte et besoin</h2>
+            <p>
+              Dans le cadre du BUT Informatique, chaque étudiant doit constituer un portfolio numérique
+              permettant de mettre en valeur ses compétences et ses réalisations auprès de
+              recruteurs, d'enseignants et de professionnels du secteur.
+            </p>
+            <p>
+              L'objectif était de créer un site web statique, complet et professionnel, sans
+              recourir à un CMS ou à un framework complexe, afin de démontrer la maîtrise
+              des technologies web de base (HTML, CSS, JavaScript).
+            </p>
+          </div>
+
+          <div class="content-section">
+            <h2><span class="icon">🔧</span>Ce qui a été réalisé</h2>
+            <p>
+              J'ai conçu et développé l'ensemble du site de A à Z : structure, design,
+              intégration et comportements interactifs. Voici les principales réalisations :
+            </p>
+            <ul class="realisation-list">
+              <li>Page d'accueil avec mise en page hero bi-colonne (photo + présentation)</li>
+              <li>Page "À propos" avec timeline de parcours et centres d'intérêt</li>
+              <li>Page compétences avec accordéon interactif (6 compétences BUT Informatique)</li>
+              <li>Page de projet avec carrousel d'images et bouton de téléchargement</li>
+              <li>Page de contact avec formulaire fonctionnel (Formspree)</li>
+              <li>Navigation responsive avec menu hamburger sur mobile</li>
+              <li>Charte graphique cohérente via CSS custom properties (variables)</li>
+            </ul>
+          </div>
+
+          <div class="carousel-section">
+            <h2><span class="icon">📸</span>Aperçus du projet</h2>
+            <div class="carousel">
+              <div class="carousel-track">
+                <div class="carousel-slide">
+                  <div style="height:360px;background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);flex-direction:column;gap:12px">
+                    <span style="font-size:2.5rem">🖥️</span>
+                    <span>Page d'accueil — aperçu à venir</span>
+                  </div>
+                  <div class="carousel-caption">Page d'accueil — Hero avec photo et présentation</div>
+                </div>
+                <div class="carousel-slide">
+                  <div style="height:360px;background:linear-gradient(135deg,#0f3460,#16213e);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);flex-direction:column;gap:12px">
+                    <span style="font-size:2.5rem">📄</span>
+                    <span>Page compétences — aperçu à venir</span>
+                  </div>
+                  <div class="carousel-caption">Page compétences — Accordéon interactif</div>
+                </div>
+              </div>
+              <button class="carousel-btn prev" aria-label="Précédent">‹</button>
+              <button class="carousel-btn next" aria-label="Suivant">›</button>
+              <div class="carousel-dots"></div>
+            </div>
+          </div>
+
+          <div class="project-nav">
+            <a href="../page_competences/page_competences.html" class="project-nav-btn prev">
+              <span style="font-size:1.2rem">←</span>
+              <div>
+                <div class="project-nav-label">Retour</div>
+                <div class="project-nav-title">Toutes les compétences</div>
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <h4>Evan BENOIT</h4>
+          <p>Étudiant BUT Informatique passionné de développement web et d'informatique.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="GitHub">GH</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="../index.html">Accueil</a>
+          <a href="../page_presentation/page_presentation.html">À propos</a>
+          <a href="../page_competences/page_competences.html">Compétences &amp; Projets</a>
+          <a href="../page_contact/page_contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:votre@email.fr">votre@email.fr</a>
+          <a href="tel:+33600000000">+33 6 00 00 00 00</a>
+          <p>France</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Evan BENOIT — Portfolio réalisé en HTML / CSS / JS</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

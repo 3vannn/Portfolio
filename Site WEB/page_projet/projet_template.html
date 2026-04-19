@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Nom du projet] — Evan BENOIT</title>
+  <!--
+    ════════════════════════════════════════════════════════
+    GUIDE D'UTILISATION DE CE TEMPLATE
+    ════════════════════════════════════════════════════════
+    1. Dupliquez ce fichier pour chaque nouveau projet
+       Exemple : projet_gestion_stock.html, projet_site_vitrine.html
+
+    2. Remplacez tous les [TEXTE EN CROCHETS] par votre contenu
+
+    3. Pour ajouter des images au carrousel, ajoutez des blocs
+       .carousel-slide dans la section #carousel
+
+    4. Pour activer le téléchargement, mettez votre fichier
+       dans assets/downloads/ et ajustez le lien .btn-download
+
+    5. Mettez à jour le lien de la compétence associée dans
+       la page page_competences.html
+    ════════════════════════════════════════════════════════
+  -->
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* ── Projet header ── */
+    .project-hero {
+      background: var(--navy);
+      padding: calc(var(--nav-h) + 50px) 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 80% at 80% 50%, rgba(0,173,181,0.12) 0%, transparent 70%);
+    }
+    .project-hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: start;
+      position: relative;
+    }
+    .project-competence-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,173,181,0.15);
+      border: 1px solid rgba(0,173,181,0.3);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+    }
+    .project-hero h1 { color: var(--white); font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 16px; }
+    .project-hero-desc {
+      color: rgba(255,255,255,0.65);
+      font-size: 1.02rem;
+      max-width: 600px;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+    .project-tech-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .project-tech-badge {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.8rem;
+      padding: 5px 14px;
+      border-radius: 50px;
+    }
+
+    /* Méta-infos projet (sidebar) */
+    .project-meta {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      min-width: 220px;
+    }
+    .meta-item { margin-bottom: 18px; }
+    .meta-item:last-child { margin-bottom: 0; }
+    .meta-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: rgba(255,255,255,0.4);
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .meta-value { color: rgba(255,255,255,0.85); font-size: 0.9rem; font-weight: 500; }
+
+    /* ── Breadcrumb (dans le hero) ── */
+    .project-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 20px;
+    }
+    .project-breadcrumb a { color: rgba(255,255,255,0.55); transition: color var(--transition); }
+    .project-breadcrumb a:hover { color: var(--accent); }
+
+    /* ── Sections contenu ── */
+    .project-content { max-width: 820px; }
+    .content-section {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 42px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      border: 1.5px solid var(--border);
+    }
+    .content-section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .content-section h2 .icon {
+      width: 38px;
+      height: 38px;
+      background: rgba(0,173,181,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .content-section p {
+      color: var(--text-muted);
+      line-height: 1.85;
+      margin-bottom: 14px;
+      font-size: 1rem;
+    }
+    .content-section p:last-child { margin-bottom: 0; }
+
+    /* Liste de réalisations */
+    .realisation-list { list-style: none; padding: 0; margin-top: 14px; }
+    .realisation-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.97rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .realisation-list li:last-child { border-bottom: none; }
+    .realisation-list li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── Zone carrousel ── */
+    .carousel-section {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 42px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      border: 1.5px solid var(--border);
+    }
+    .carousel-section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .carousel-section h2 .icon {
+      width: 38px;
+      height: 38px;
+      background: rgba(0,173,181,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    /* ── Téléchargement ── */
+    .download-section {
+      background: linear-gradient(135deg, var(--navy) 0%, #16213e 100%);
+      border-radius: var(--radius-lg);
+      padding: 42px;
+      margin-bottom: 28px;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+    .download-text h2 {
+      color: var(--white);
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+    .download-text p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+    .btn-download {
+      background: var(--accent);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    .btn-download:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,173,181,0.4);
+    }
+
+    /* ── Navigation entre projets ── */
+    .project-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 10px;
+    }
+    .project-nav-btn {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 24px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: var(--transition);
+      text-decoration: none;
+      color: var(--text);
+    }
+    .project-nav-btn:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+    .project-nav-btn.next { justify-content: flex-end; text-align: right; }
+    .project-nav-label { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+    .project-nav-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--navy); }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .project-hero-inner { grid-template-columns: 1fr; }
+      .project-meta { min-width: auto; }
+      .content-section, .carousel-section { padding: 26px 20px; }
+      .download-section { flex-direction: column; text-align: center; }
+      .project-nav { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">EB<span>.</span></a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Accueil</a></li>
+        <li><a href="../page_presentation/page_presentation.html">À propos</a></li>
+        <li><a href="../page_competences/page_competences.html">Compétences</a></li>
+        <li><a href="../page_contact/page_contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── En-tête du projet ── -->
+  <div class="project-hero">
+    <div class="container">
+      <div class="project-hero-inner">
+
+        <div>
+          <!-- Fil d'Ariane -->
+          <div class="project-breadcrumb">
+            <a href="../index.html">Accueil</a>
+            <span>›</span>
+            <a href="../page_competences/page_competences.html">Compétences</a>
+            <span>›</span>
+            <span>[Nom du projet]</span>
+          </div>
+
+          <!-- Badge compétence -->
+          <div class="project-competence-badge">
+            <!-- Remplacez par la bonne compétence -->
+            <span>●</span> Compétence [N° - Intitulé court]
+          </div>
+
+          <h1>[Nom du projet]</h1>
+
+          <p class="project-hero-desc">
+            <!--
+              Rédigez ici une phrase d'accroche pour votre projet :
+              ce qu'il fait, son objectif principal, pour qui il est fait.
+            -->
+            [Description courte et percutante du projet — 1 à 2 phrases résumant
+            l'essentiel de ce qui a été réalisé et dans quel contexte.]
+          </p>
+
+          <div class="project-tech-list">
+            <!-- Listez les technologies / outils utilisés -->
+            <span class="project-tech-badge">HTML</span>
+            <span class="project-tech-badge">CSS</span>
+            <span class="project-tech-badge">JavaScript</span>
+            <!-- Ajoutez autant de badges que nécessaire -->
+          </div>
+        </div>
+
+        <!-- Méta-données -->
+        <div class="project-meta">
+          <div class="meta-item">
+            <div class="meta-label">Date</div>
+            <div class="meta-value">[Mois AAAA]</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Contexte</div>
+            <div class="meta-value">[Projet scolaire / Stage / Personnel]</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Durée</div>
+            <div class="meta-value">[X semaines / mois]</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Équipe</div>
+            <div class="meta-value">[Seul / En binôme / Groupe de N]</div>
+          </div>
+          <!-- Ajoutez d'autres méta-infos si besoin -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Contenu principal ── -->
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="project-content">
+
+          <!-- Section 1 : Contexte et besoin -->
+          <div class="content-section">
+            <h2><span class="icon">🎯</span>Contexte et besoin</h2>
+            <p>
+              <!--
+                Expliquez le contexte du projet :
+                - Qui est le commanditaire / destinataire ?
+                - Quel problème ce projet résout-il ?
+                - Quelle était la demande initiale ?
+              -->
+              [Description du contexte : expliquez la situation initiale, les besoins
+              identifiés, et pourquoi ce projet a été lancé. Qui en avait besoin et pour
+              quelle raison ?]
+            </p>
+            <p>
+              [Continuez si nécessaire : quelles étaient les contraintes, le périmètre du
+              projet, les exigences fonctionnelles attendues ?]
+            </p>
+          </div>
+
+          <!-- Section 2 : Ce qui a été réalisé -->
+          <div class="content-section">
+            <h2><span class="icon">🔧</span>Ce qui a été réalisé</h2>
+            <p>
+              <!--
+                Décrivez ce que vous avez concrètement fait :
+                analyse, conception, développement, tests, déploiement…
+              -->
+              [Paragraphe décrivant globalement ce qui a été produit et comment
+              vous avez abordé la réalisation de ce projet.]
+            </p>
+
+            <ul class="realisation-list">
+              <!-- Listez les éléments clés réalisés -->
+              <li>[Fonctionnalité ou livrable n°1]</li>
+              <li>[Fonctionnalité ou livrable n°2]</li>
+              <li>[Fonctionnalité ou livrable n°3]</li>
+              <li>[Fonctionnalité ou livrable n°4]</li>
+              <!-- Ajoutez autant de lignes que nécessaire -->
+            </ul>
+          </div>
+
+          <!-- Section 3 : Carrousel de captures (optionnel) -->
+          <!--
+            SECTION CARROUSEL — COMMENT L'UTILISER :
+            - Ajoutez vos captures d'écran dans assets/images/
+            - Copiez des blocs .carousel-slide pour chaque image
+            - Mettez à jour le src et l'alt de chaque image
+            - Si vous n'avez pas d'images, supprimez cette section entière
+          -->
+          <div class="carousel-section">
+            <h2><span class="icon">📸</span>Aperçus du projet</h2>
+
+            <div class="carousel">
+              <div class="carousel-track">
+
+                <div class="carousel-slide">
+                  <!--
+                    Remplacez src par le chemin de votre image.
+                    Exemple : src="../assets/images/projet1_screen1.png"
+                  -->
+                  <img src="../assets/images/placeholder.png"
+                       alt="Capture 1 — [Description]"
+                       onerror="this.parentElement.innerHTML='<div style=\'height:420px;background:#f0f6fc;display:flex;align-items:center;justify-content:center;color:#718096;flex-direction:column;gap:12px\'><span style=\'font-size:3rem\'>🖼️</span><span>Capture d\'écran à venir</span></div>'">
+                  <div class="carousel-caption">Capture 1 — [Ajoutez une description]</div>
+                </div>
+
+                <div class="carousel-slide">
+                  <img src="../assets/images/placeholder2.png"
+                       alt="Capture 2 — [Description]"
+                       onerror="this.parentElement.innerHTML='<div style=\'height:420px;background:#f0f6fc;display:flex;align-items:center;justify-content:center;color:#718096;flex-direction:column;gap:12px\'><span style=\'font-size:3rem\'>🖼️</span><span>Capture d\'écran à venir</span></div>'">
+                  <div class="carousel-caption">Capture 2 — [Ajoutez une description]</div>
+                </div>
+
+                <!-- Copiez ce bloc pour ajouter d'autres images -->
+
+              </div>
+              <button class="carousel-btn prev" aria-label="Image précédente">‹</button>
+              <button class="carousel-btn next" aria-label="Image suivante">›</button>
+              <div class="carousel-dots"></div>
+            </div>
+          </div>
+
+          <!-- Section 4 : Téléchargement (optionnel) -->
+          <!--
+            SECTION TÉLÉCHARGEMENT — COMMENT L'UTILISER :
+            - Placez le fichier à télécharger dans assets/downloads/
+            - Mettez à jour le href du bouton .btn-download
+            - Si pas de téléchargement, supprimez cette section
+          -->
+          <div class="download-section">
+            <div class="download-text">
+              <h2>📥 Télécharger le projet</h2>
+              <p>
+                Retrouvez les fichiers sources du projet pour l'explorer et le tester
+                par vous-même sur votre machine.
+                <!--
+                  Précisez ce que contient l'archive :
+                  code source, documentation, base de données…
+                -->
+              </p>
+            </div>
+            <a href="../assets/downloads/[nom-du-fichier].zip"
+               class="btn-download"
+               download
+               aria-label="Télécharger le projet">
+              ⬇ Télécharger (.zip)
+            </a>
+          </div>
+
+          <!-- Navigation entre projets -->
+          <div class="project-nav">
+            <a href="#" class="project-nav-btn prev">
+              <span style="font-size:1.2rem">←</span>
+              <div>
+                <div class="project-nav-label">Projet précédent</div>
+                <div class="project-nav-title">[Titre du projet précédent]</div>
+              </div>
+            </a>
+            <a href="#" class="project-nav-btn next">
+              <div>
+                <div class="project-nav-label">Projet suivant</div>
+                <div class="project-nav-title">[Titre du projet suivant]</div>
+              </div>
+              <span style="font-size:1.2rem">→</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <h4>Evan BENOIT</h4>
+          <p>Étudiant BUT Informatique passionné de développement web et d'informatique.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="GitHub">GH</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="../index.html">Accueil</a>
+          <a href="../page_presentation/page_presentation.html">À propos</a>
+          <a href="../page_competences/page_competences.html">Compétences &amp; Projets</a>
+          <a href="../page_contact/page_contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:votre@email.fr">votre@email.fr</a>
+          <a href="tel:+33600000000">+33 6 00 00 00 00</a>
+          <p>France</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Evan BENOIT — Portfolio réalisé en HTML / CSS / JS</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
