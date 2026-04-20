@@ -209,33 +209,6 @@
       color: var(--accent);
     }
 
-    /* Scroll indicator */
-    .scroll-hint {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      color: rgba(255,255,255,0.3);
-      font-size: 0.75rem;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      animation: bounce 2s ease-in-out infinite;
-    }
-    .scroll-hint::after {
-      content: '';
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50%       { transform: translateX(-50%) translateY(6px); }
-    }
-
     /* ── Responsive ────────────────────────────────────────── */
     @media (max-width: 860px) {
       .hero-inner {
@@ -345,8 +318,6 @@
       </div>
 
     </div>
-
-    <div class="scroll-hint">Défiler</div>
   </main>
 
   <!-- ── Footer ── -->
