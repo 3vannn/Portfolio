@@ -6,28 +6,34 @@
   <title>Compétences &amp; Projets — Evan BENOIT</title>
   <link rel="stylesheet" href="../css/style.css">
   <style>
-    .competences-intro { text-align: center; max-width: 640px; margin: 0 auto 70px; }
+    .competences-intro { text-align: center; max-width: 640px; margin: 0 auto 60px; }
     .competences-intro p { color: var(--text-muted); font-size: 1.02rem; line-height: 1.8; }
-    .sae-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 28px; }
-    .sae-card { background: var(--white); border-radius: var(--radius-lg); border: 1.5px solid var(--border); box-shadow: var(--shadow-sm); overflow: hidden; text-decoration: none; display: flex; flex-direction: column; transition: var(--transition); }
-    .sae-card:hover { border-color: var(--accent); box-shadow: var(--shadow-lg); transform: translateY(-6px); }
-    .sae-card-stripe { height: 5px; background: linear-gradient(90deg, var(--accent), var(--accent-hover)); }
-    .sae-card-img { width: 100%; height: 180px; background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.25); font-size: 3rem; position: relative; overflow: hidden; }
-    .sae-card-img img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
-    .sae-badge { position: absolute; top: 12px; left: 12px; background: rgba(0,173,181,0.92); color: white; font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; letter-spacing: .04em; text-transform: uppercase; z-index: 2; }
-    .sae-card-body { padding: 22px 24px 20px; flex: 1; display: flex; flex-direction: column; }
-    .sae-card-label { font-size: 0.75rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
-    .sae-card-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--navy); margin-bottom: 10px; line-height: 1.3; }
-    .sae-card-desc { font-size: 0.87rem; color: var(--text-muted); line-height: 1.65; flex: 1; }
-    .sae-card-footer { padding: 14px 24px 18px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); gap: 10px; }
-    .sae-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-    .sae-tag { background: rgba(0,173,181,0.1); color: var(--accent); font-size: 0.7rem; font-weight: 600; padding: 3px 10px; border-radius: 50px; }
-    .sae-arrow { font-size: 1.1rem; color: var(--accent); transition: transform var(--transition); flex-shrink: 0; }
-    .sae-card:hover .sae-arrow { transform: translateX(5px); }
-    .section-label { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
-    .section-label-line { flex: 1; height: 1px; background: var(--border); }
-    .section-label-text { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); white-space: nowrap; }
-    @media (max-width: 680px) { .sae-grid { grid-template-columns: 1fr; } }
+    .accordion { display: flex; flex-direction: column; gap: 16px; }
+    .accordion-item { background: var(--white); border-radius: var(--radius-lg); border: 1.5px solid var(--border); box-shadow: var(--shadow-sm); overflow: hidden; transition: box-shadow var(--transition), border-color var(--transition); }
+    .accordion-item.open { border-color: var(--accent); box-shadow: var(--shadow); }
+    .accordion-header { display: flex; align-items: center; gap: 18px; padding: 24px 28px; cursor: pointer; user-select: none; transition: background var(--transition); }
+    .accordion-header:hover { background: rgba(0,173,181,0.04); }
+    .accordion-icon-wrap { width: 50px; height: 50px; border-radius: 14px; background: rgba(0,173,181,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background var(--transition); color: var(--accent); }
+    .accordion-item.open .accordion-icon-wrap { background: var(--accent); color: white; }
+    .accordion-meta { flex: 1; }
+    .accordion-badge { font-size: 0.72rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 4px; }
+    .accordion-title { font-family: 'Syne', sans-serif; font-size: 1.12rem; font-weight: 700; color: var(--navy); }
+    .accordion-subtitle { font-size: 0.85rem; color: var(--text-muted); margin-top: 2px; }
+    .accordion-chevron { flex-shrink: 0; color: var(--text-muted); transition: transform 0.35s ease, color var(--transition); }
+    .accordion-item.open .accordion-chevron { transform: rotate(180deg); color: var(--accent); }
+    .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .accordion-body-inner { padding: 24px 28px 28px; border-top: 1px solid var(--border); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .project-card { border: 1.5px solid var(--border); border-radius: var(--radius); padding: 20px 22px; text-decoration: none; display: flex; flex-direction: column; gap: 10px; transition: var(--transition); background: var(--bg); }
+    .project-card:hover { border-color: var(--accent); background: var(--white); box-shadow: var(--shadow); transform: translateY(-3px); }
+    .project-card-header { display: flex; align-items: center; justify-content: space-between; }
+    .project-card-label { font-size: 0.72rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; }
+    .project-card-arrow { color: var(--accent); opacity: 0; transition: opacity var(--transition), transform var(--transition); }
+    .project-card:hover .project-card-arrow { opacity: 1; transform: translateX(4px); }
+    .project-card-title { font-family: 'Syne', sans-serif; font-size: 0.98rem; font-weight: 700; color: var(--navy); line-height: 1.3; }
+    .project-card-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; flex: 1; }
+    .project-card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .project-tag { background: rgba(0,173,181,0.1); color: var(--accent); font-size: 0.68rem; font-weight: 600; padding: 2px 9px; border-radius: 50px; }
   </style>
 </head>
 <body>
@@ -35,9 +41,9 @@
     <div class="nav-inner">
       <a href="../index.html" class="nav-logo">EB<span>.</span></a>
       <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
-      <ul class="nav-links">
+            <ul class="nav-links">
         <li><a href="../index.html">Accueil</a></li>
-        <li><a href="../page_presentation/page_presentation.html">À propos</a></li>
+        <li><a href="../page_presentation/page_presentation.html">Présentation</a></li>
         <li><a href="page_competences.html" class="active">Compétences</a></li>
         <li><a href="../page_contact/page_contact.html">Contact</a></li>
       </ul>
@@ -47,8 +53,8 @@
   <div class="page-hero">
     <div class="container">
       <div class="tag">BUT Informatique — 1ère année</div>
-      <h1>Mes SAE</h1>
-      <p>6 Situations d'Apprentissage et d'Évaluation réalisées en première année de BUT Informatique.</p>
+      <h1>Mes Compétences &amp; SAE</h1>
+      <p>6 Situations d'Apprentissage et d'Évaluation, classées par compétence.</p>
       <div class="breadcrumb">
         <a href="../index.html">Accueil</a><span>›</span><span>Compétences &amp; Projets</span>
       </div>
@@ -59,98 +65,190 @@
     <section class="section">
       <div class="container">
         <div class="competences-intro">
-          <p>En première année de BUT Informatique, chaque compétence du référentiel est illustrée par une SAE (Situation d'Apprentissage et d'Évaluation). Cliquez sur une carte pour découvrir les détails du projet.</p>
+          <p>En première année de BUT Informatique, chaque compétence du référentiel est illustrée par une SAE. Cliquez sur une compétence pour découvrir le projet associé.</p>
         </div>
-        <div class="section-label">
-          <span class="section-label-line"></span>
-          <span class="section-label-text">6 projets — Semestre 1</span>
-          <span class="section-label-line"></span>
-        </div>
-        <div class="sae-grid">
 
-          <a href="../page_projet/sae101.html" class="sae-card">
-            <div class="sae-card-stripe"></div>
-            <div class="sae-card-img">🎮<span class="sae-badge">C1 — Développer</span></div>
-            <div class="sae-card-body">
-              <div class="sae-card-label">SAE 1.01</div>
-              <div class="sae-card-title">Implémentation d'un besoin client — Sokoban</div>
-              <div class="sae-card-desc">Conception complète d'un jeu de Sokoban en langage C : maquette, cahier des tests, algorithme, code source et traces d'exécution, en 2 versions itératives.</div>
-            </div>
-            <div class="sae-card-footer">
-              <div class="sae-tags"><span class="sae-tag">Langage C</span><span class="sae-tag">Algorithmique</span></div>
-              <span class="sae-arrow">→</span>
-            </div>
-          </a>
+        <div class="accordion">
 
-          <a href="../page_projet/sae102.html" class="sae-card">
-            <div class="sae-card-stripe"></div>
-            <div class="sae-card-img">🔄<span class="sae-badge">C2 — Algorithmique</span></div>
-            <div class="sae-card-body">
-              <div class="sae-card-label">SAE 1.02</div>
-              <div class="sae-card-title">Comparaison d'approches algorithmiques</div>
-              <div class="sae-card-desc">Optimisation des déplacements dans le Sokoban en C : déplacements automatiques puis optimisés, avec comparaison et analyse des différentes approches algorithmiques.</div>
+          <!-- C1 -->
+          <div class="accordion-item">
+            <div class="accordion-header" role="button" tabindex="0" aria-expanded="false">
+              <div class="accordion-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </div>
+              <div class="accordion-meta">
+                <div class="accordion-badge">Compétence 1</div>
+                <div class="accordion-title">Réaliser un développement d'application</div>
+                <div class="accordion-subtitle">Développer — implémenter un besoin client</div>
+              </div>
+              <svg class="accordion-chevron" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
-            <div class="sae-card-footer">
-              <div class="sae-tags"><span class="sae-tag">Langage C</span><span class="sae-tag">Optimisation</span></div>
-              <span class="sae-arrow">→</span>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <div class="projects-grid">
+                  <a href="../page_projet/sae101.html" class="project-card">
+                    <div class="project-card-header">
+                      <span class="project-card-label">SAE 1.01</span>
+                      <svg class="project-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </div>
+                    <div class="project-card-title">Implémentation d'un besoin client — Sokoban</div>
+                    <div class="project-card-desc">Conception complète d'un jeu de Sokoban en langage C : maquette, cahier des tests, algorithme, code source et traces d'exécution, en 2 versions itératives.</div>
+                    <div class="project-card-tags"><span class="project-tag">Langage C</span><span class="project-tag">Algorithmique</span></div>
+                  </a>
+                </div>
+              </div>
             </div>
-          </a>
+          </div>
 
-          <a href="../page_projet/sae103.html" class="sae-card">
-            <div class="sae-card-stripe"></div>
-            <div class="sae-card-img">🐳<span class="sae-badge">C3 — Environnement</span></div>
-            <div class="sae-card-body">
-              <div class="sae-card-label">SAE 1.03</div>
-              <div class="sae-card-title">Installation d'un poste pour le développement</div>
-              <div class="sae-card-desc">Mise en place d'un workflow de conteneurs Docker chaînés générant des PDFs de rapports commerciaux régionaux — environnement redéployable et documenté.</div>
+          <!-- C2 -->
+          <div class="accordion-item">
+            <div class="accordion-header" role="button" tabindex="0" aria-expanded="false">
+              <div class="accordion-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+              </div>
+              <div class="accordion-meta">
+                <div class="accordion-badge">Compétence 2</div>
+                <div class="accordion-title">Optimiser des applications informatiques</div>
+                <div class="accordion-subtitle">Algorithmique — comparer des approches</div>
+              </div>
+              <svg class="accordion-chevron" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
-            <div class="sae-card-footer">
-              <div class="sae-tags"><span class="sae-tag">Docker</span><span class="sae-tag">Linux</span><span class="sae-tag">Scripts</span></div>
-              <span class="sae-arrow">→</span>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <div class="projects-grid">
+                  <a href="../page_projet/sae102.html" class="project-card">
+                    <div class="project-card-header">
+                      <span class="project-card-label">SAE 1.02</span>
+                      <svg class="project-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </div>
+                    <div class="project-card-title">Comparaison d'approches algorithmiques</div>
+                    <div class="project-card-desc">Optimisation des déplacements dans le Sokoban en C : déplacements automatiques puis optimisés, avec comparaison et analyse des différentes approches.</div>
+                    <div class="project-card-tags"><span class="project-tag">Langage C</span><span class="project-tag">Optimisation</span></div>
+                  </a>
+                </div>
+              </div>
             </div>
-          </a>
+          </div>
 
-          <a href="../page_projet/sae104.html" class="sae-card">
-            <div class="sae-card-stripe"></div>
-            <div class="sae-card-img">🗄️<span class="sae-badge">C4 — Base de données</span></div>
-            <div class="sae-card-body">
-              <div class="sae-card-label">SAE 1.04</div>
-              <div class="sae-card-title">Création d'une base de données</div>
-              <div class="sae-card-desc">À partir de documents d'un fournisseur énergétique : rétro-ingénierie, modélisation objet, passage au modèle relationnel, requêtes SQL et extension de la base.</div>
+          <!-- C3 -->
+          <div class="accordion-item">
+            <div class="accordion-header" role="button" tabindex="0" aria-expanded="false">
+              <div class="accordion-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <div class="accordion-meta">
+                <div class="accordion-badge">Compétence 3</div>
+                <div class="accordion-title">Administrer des systèmes informatiques</div>
+                <div class="accordion-subtitle">Environnement — installation d'un poste de développement</div>
+              </div>
+              <svg class="accordion-chevron" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
-            <div class="sae-card-footer">
-              <div class="sae-tags"><span class="sae-tag">SQL</span><span class="sae-tag">Modélisation</span><span class="sae-tag">BDD</span></div>
-              <span class="sae-arrow">→</span>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <div class="projects-grid">
+                  <a href="../page_projet/sae103.html" class="project-card">
+                    <div class="project-card-header">
+                      <span class="project-card-label">SAE 1.03</span>
+                      <svg class="project-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </div>
+                    <div class="project-card-title">Installation d'un poste pour le développement</div>
+                    <div class="project-card-desc">Workflow de conteneurs Docker chaînés générant des PDFs de rapports commerciaux régionaux — environnement redéployable et documenté.</div>
+                    <div class="project-card-tags"><span class="project-tag">Docker</span><span class="project-tag">Linux</span><span class="project-tag">Scripts</span></div>
+                  </a>
+                </div>
+              </div>
             </div>
-          </a>
+          </div>
 
-          <a href="../page_projet/sae105.html" class="sae-card">
-            <div class="sae-card-stripe"></div>
-            <div class="sae-card-img">🌸<span class="sae-badge">C5 — Besoins clients</span></div>
-            <div class="sae-card-body">
-              <div class="sae-card-label">SAE 1.05</div>
-              <div class="sae-card-title">Site web — Découverte du Japon</div>
-              <div class="sae-card-desc">Création en équipe d'un site web promouvant le Japon : expression des besoins, arborescence, charte graphique, maquette, puis développement HTML/CSS/JS avec GIT.</div>
+          <!-- C4 -->
+          <div class="accordion-item">
+            <div class="accordion-header" role="button" tabindex="0" aria-expanded="false">
+              <div class="accordion-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+              </div>
+              <div class="accordion-meta">
+                <div class="accordion-badge">Compétence 4</div>
+                <div class="accordion-title">Gérer des données de l'information</div>
+                <div class="accordion-subtitle">Base de données — conception et requêtes SQL</div>
+              </div>
+              <svg class="accordion-chevron" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
-            <div class="sae-card-footer">
-              <div class="sae-tags"><span class="sae-tag">HTML/CSS</span><span class="sae-tag">GIT</span><span class="sae-tag">Équipe</span></div>
-              <span class="sae-arrow">→</span>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <div class="projects-grid">
+                  <a href="../page_projet/sae104.html" class="project-card">
+                    <div class="project-card-header">
+                      <span class="project-card-label">SAE 1.04</span>
+                      <svg class="project-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </div>
+                    <div class="project-card-title">Création d'une base de données</div>
+                    <div class="project-card-desc">Rétro-ingénierie, modélisation objet, passage au modèle relationnel, requêtes SQL et extension de la base à partir de documents d'un fournisseur énergétique.</div>
+                    <div class="project-card-tags"><span class="project-tag">SQL</span><span class="project-tag">Modélisation</span><span class="project-tag">BDD</span></div>
+                  </a>
+                </div>
+              </div>
             </div>
-          </a>
+          </div>
 
-          <a href="../page_projet/sae106.html" class="sae-card">
-            <div class="sae-card-stripe"></div>
-            <div class="sae-card-img">🤝<span class="sae-badge">C6 — Travail en équipe</span></div>
-            <div class="sae-card-body">
-              <div class="sae-card-label">SAE 1.06</div>
-              <div class="sae-card-title">Découverte de l'environnement économique et écologique</div>
-              <div class="sae-card-desc">Analyse des engagements RSE et environnementaux de LEGO en équipe : veille documentaire, synthèse écrite et double présentation orale (individuelle et collective).</div>
+          <!-- C5 -->
+          <div class="accordion-item">
+            <div class="accordion-header" role="button" tabindex="0" aria-expanded="false">
+              <div class="accordion-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <div class="accordion-meta">
+                <div class="accordion-badge">Compétence 5</div>
+                <div class="accordion-title">Conduire un projet</div>
+                <div class="accordion-subtitle">Besoins clients — conception et développement web</div>
+              </div>
+              <svg class="accordion-chevron" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
-            <div class="sae-card-footer">
-              <div class="sae-tags"><span class="sae-tag">RSE</span><span class="sae-tag">Présentation</span><span class="sae-tag">Équipe</span></div>
-              <span class="sae-arrow">→</span>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <div class="projects-grid">
+                  <a href="../page_projet/sae105.html" class="project-card">
+                    <div class="project-card-header">
+                      <span class="project-card-label">SAE 1.05</span>
+                      <svg class="project-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </div>
+                    <div class="project-card-title">Site web — Découverte du Japon</div>
+                    <div class="project-card-desc">Création en équipe d'un site web promouvant le Japon : expression des besoins, arborescence, charte graphique, maquette, développement HTML/CSS/JS avec GIT.</div>
+                    <div class="project-card-tags"><span class="project-tag">HTML/CSS</span><span class="project-tag">GIT</span><span class="project-tag">Équipe</span></div>
+                  </a>
+                </div>
+              </div>
             </div>
-          </a>
+          </div>
+
+          <!-- C6 -->
+          <div class="accordion-item">
+            <div class="accordion-header" role="button" tabindex="0" aria-expanded="false">
+              <div class="accordion-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div class="accordion-meta">
+                <div class="accordion-badge">Compétence 6</div>
+                <div class="accordion-title">Collaborer au sein d'une équipe</div>
+                <div class="accordion-subtitle">Travail en équipe — environnement économique et écologique</div>
+              </div>
+              <svg class="accordion-chevron" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <div class="projects-grid">
+                  <a href="../page_projet/sae106.html" class="project-card">
+                    <div class="project-card-header">
+                      <span class="project-card-label">SAE 1.06</span>
+                      <svg class="project-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </div>
+                    <div class="project-card-title">Découverte de l'environnement économique et écologique</div>
+                    <div class="project-card-desc">Analyse des engagements RSE et environnementaux de LEGO en équipe : veille documentaire, synthèse écrite et double présentation orale.</div>
+                    <div class="project-card-tags"><span class="project-tag">RSE</span><span class="project-tag">Présentation</span><span class="project-tag">Équipe</span></div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
       </div>
@@ -164,9 +262,8 @@
           <h4>Evan BENOIT</h4>
           <p>Étudiant BUT Informatique passionné de développement web et d'informatique.</p>
           <div class="footer-socials">
-            <!-- Remplacez # par vos vrais liens -->
             <a href="https://www.linkedin.com/in/evan-benoit-a175303ba/" aria-label="LinkedIn" title="LinkedIn">in</a>
-            <a href="https://github.com/3vannn" aria-label="GitHub"   title="GitHub">GH</a>
+            <a href="https://github.com/3vannn" aria-label="GitHub" title="GitHub">GH</a>
           </div>
         </div>
         <div class="footer-col">
@@ -189,5 +286,27 @@
   </footer>
 
   <script src="../js/main.js"></script>
+  <script>
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const item = header.closest('.accordion-item');
+        const body = item.querySelector('.accordion-body');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.accordion-item').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.accordion-body').style.maxHeight = '0';
+          i.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          body.style.maxHeight = body.scrollHeight + 200 + 'px';
+          header.setAttribute('aria-expanded', 'true');
+        }
+      });
+      header.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); header.click(); }
+      });
+    });
+  </script>
 </body>
 </html>
