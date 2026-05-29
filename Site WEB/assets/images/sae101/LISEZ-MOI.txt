@@ -1,0 +1,15 @@
+DOSSIER IMAGES — SAE101
+========================================
+Placez ici vos captures d'écran du projet.
+
+Noms attendus par le carrousel :
+  01.jpg  →  1re image
+  02.jpg  →  2e image
+  03.jpg  →  3e image
+  04.jpg  →  4e image (optionnel)
+  ...
+
+Formats acceptés : .jpg, .jpeg, .png, .webp
+
+Pour modifier les légendes ou ajouter plus de slides,
+éditez la section CARROUSEL dans sae101.html
