@@ -128,6 +128,18 @@
       .content-section, .carousel-section { padding: 26px 20px; }
       .project-nav { flex-direction: column; }
     }
+
+    /* ── SVG icon helpers (replaces emojis) ── */
+    .svg-icon { display:inline-flex; align-items:center; justify-content:center; vertical-align:middle; }
+    .svg-icon svg { width:1em; height:1em; }
+    .icon.svg-icon svg { width:1.2rem; height:1.2rem; }
+    .star-label .svg-icon svg { width:0.9em; height:0.9em; }
+    .sidebar-download-title .svg-icon svg { width:1em; height:1em; }
+    .form-success .svg-icon svg { width:1em; height:1em; }
+    .cv-btn .svg-icon svg { width:1em; height:1em; }
+    .download-text h2 .svg-icon svg { width:1em; height:1em; }
+    .carousel-placeholder-icon { display:flex; align-items:center; justify-content:center; color:#94a3b8; }
+    .carousel-placeholder-icon svg { width:3rem; height:3rem; }
   </style>
 </head>
 <body>
@@ -187,7 +199,7 @@
                  → Placez votre fichier dans : assets/downloads/
                  ════════════════════════════════════════════ -->
             <div class="sidebar-download">
-              <div class="sidebar-download-title">📥 Télécharger</div>
+              <div class="sidebar-download-title"><span class="svg-icon" style="margin-right:6px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>Télécharger</div>
               <div class="sidebar-download-desc">Récupérez les fichiers sources du projet.</div>
               <a id="btn-download" href="#" class="btn-download" download>
                 ⬇ Télécharger
@@ -203,19 +215,19 @@
 
             <!-- Contexte & Objectifs (méthode STAR) -->
             <div class="content-section">
-              <h2><span class="icon">🎯</span>Contexte et objectifs</h2>
+              <h2><span class="icon svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>Contexte et objectifs</h2>
               <div class="star-grid">
             <div class="star-block star-situation">
-              <div class="star-label">🔍 Situation</div>
+              <div class="star-label"><span class="svg-icon" style="margin-right:5px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>Situation</div>
               <p>Dans le cadre de la formation BUT Informatique, la gestion d'un environnement de développement professionnel est une compétence clé. L'équipe pédagogique a confié à notre groupe de 4 étudiants la mise en place d'un système de traitement automatique de données.</p>
             </div>            <div class="star-block star-task">
-              <div class="star-label">🎯 Tâche</div>
+              <div class="star-label"><span class="svg-icon" style="margin-right:5px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>Tâche</div>
               <p>L'objectif était de déployer un ensemble de briques logicielles conteneurisées avec Docker, formant un workflow capable de générer automatiquement des rapports PDF à partir de données commerciales régionales. Le système devait être reproductible et redéployable facilement par n'importe quel développeur.</p>
             </div>            <div class="star-block star-action">
-              <div class="star-label">⚙️ Action</div>
+              <div class="star-label"><span class="svg-icon" style="margin-right:5px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>Action</div>
               <p>Nous avons analysé le besoin, sélectionné les conteneurs Docker adaptés à chaque étape, préparé les fichiers de test, conçu la chaîne de traitement et automatisé l'ensemble via des scripts Shell. J'ai contribué à la conception du workflow et à sa documentation pour garantir la reproductibilité.</p>
             </div>            <div class="star-block star-result">
-              <div class="star-label">✅ Résultat</div>
+              <div class="star-label"><span class="svg-icon" style="margin-right:5px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Résultat</div>
               <p>Le workflow complet a été livré : documentation d'installation, scripts Shell d'automatisation et procédure de déploiement testée. Cette SAE m'a permis de découvrir concrètement Docker, Linux et la logique d'administration système dans un contexte professionnel réaliste.</p>
             </div>
               </div>
@@ -224,7 +236,7 @@
 
             <!-- Étapes du projet -->
             <div class="content-section">
-              <h2><span class="icon">📋</span>Étapes du projet</h2>
+              <h2><span class="icon svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span>Étapes du projet</h2>
               <ul class="steps-list">
                 <li><span class="step-num">1</span><div><strong>Identifier les outils nécessaires</strong> — Analyse du besoin et sélection des conteneurs Docker adaptés à chaque étape du traitement.</div></li><li><span class="step-num">2</span><div><strong>Préparation des fichiers de test</strong> — Création des jeux de données et fichiers de configuration pour valider le workflow.</div></li><li><span class="step-num">3</span><div><strong>Proposition d'un workflow</strong> — Conception de la chaîne de conteneurs et des liaisons entre chaque brique logicielle.</div></li><li><span class="step-num">4</span><div><strong>Production finale et scriptage</strong> — Automatisation du workflow avec des scripts Shell, documentation de la procédure d'installation et de déploiement.</div></li>
               </ul>
@@ -232,7 +244,7 @@
 
             <!-- Ce qui a été réalisé -->
             <div class="content-section">
-              <h2><span class="icon">🔧</span>Ce qui a été réalisé</h2>
+              <h2><span class="icon svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>Ce qui a été réalisé</h2>
               <ul class="realisation-list">
                 <li>Analyse et sélection des conteneurs Docker « utilitaires » adaptés au besoin</li><li>Conception du workflow de traitement en chaîne de conteneurs</li><li>Scripts Shell d'automatisation de l'ensemble du pipeline</li><li>Documentation complète de la procédure d'installation et de déploiement</li><li>Génération automatique de rapports PDF depuis des données brutes</li>
               </ul>
@@ -249,7 +261,7 @@
                4. Pour retirer une image, supprimez le bloc <div class="carousel-slide">
                ════════════════════════════════════════════════════════ -->
           <div class="carousel-section">
-            <h2><span class="icon">📸</span>Aperçus du projet</h2>
+            <h2><span class="icon svg-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>Aperçus du projet</h2>
 
             <div class="carousel">
               <div class="carousel-track">
